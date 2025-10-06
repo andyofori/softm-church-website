@@ -1,32 +1,42 @@
-// Mobile Navigation Toggle
+// Mobile Navigation Toggle (guard for older browsers)
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+}
 
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    navMenu.classList.remove('active');
+// Close mobile menu when clicking on a link (compat for older Safari)
+Array.from(document.querySelectorAll('.nav-link')).forEach(n => n.addEventListener('click', () => {
+    if (hamburger) hamburger.classList.remove('active');
+    if (navMenu) navMenu.classList.remove('active');
 }));
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+// Smooth scrolling for navigation links with fallback for older Safari
+const supportsSmoothScroll = 'scrollBehavior' in document.documentElement.style;
+Array.from(document.querySelectorAll('a[href^="#"]')).forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const headerOffset = 70;
-            const elementPosition = target.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+        const headerOffset = 70;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        if (supportsSmoothScroll && typeof window.scrollTo === 'function') {
+            try {
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            } catch (_) {
+                window.scrollTo(0, offsetPosition);
+            }
+        } else {
+            window.scrollTo(0, offsetPosition);
         }
     });
 });
@@ -85,31 +95,35 @@ if (contactForm) {
     });
 }
 
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe elements for animation
+// Intersection Observer for animations with fallback
 document.addEventListener('DOMContentLoaded', () => {
     const animateElements = document.querySelectorAll('.service-card, .ministry-card, .event-card, .about-text, .about-image');
-    
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
+
+    if ('IntersectionObserver' in window) {
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        Array.from(animateElements).forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    } else {
+        // Fallback: simply reveal elements without animation
+        Array.from(animateElements).forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+        });
+    }
 });
 
 // Add active class to current navigation item based on scroll position
