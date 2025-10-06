@@ -221,10 +221,12 @@ p {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -1px;
+    bottom: -40px;
     height: 120px;
     background: var(--white);
     clip-path: polygon(0 40%, 100% 0, 100% 100%, 0% 100%);
+    z-index: 1; /* keep below hero content */
+    pointer-events: none; /* never block clicks */
 }
 
 .hero-content {
