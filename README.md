@@ -1,4 +1,4 @@
-# Spring of Faith Church Website
+# Spring of Faith Church Website (using Netflify)
 
 A modern, responsive website for Spring of Faith Church built with HTML, CSS, and JavaScript.
 
