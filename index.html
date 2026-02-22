@@ -1,53 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring of Faith Teaching Ministry World Wide - Welcome Home</title>
-    <meta name="description"
-        content="Join us at Spring of Faith Teaching Ministry World Wide (SOFT M) for worship, community, and spiritual growth. All are welcome in God's house.">
+    <meta name="description" content="Join us at Spring of Faith Teaching Ministry World Wide (SOFT M) for worship, community, and spiritual growth. All are welcome in God's house.">
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="assets/img/logo.svg" alt="SOFT M Logo" class="logo-img">
                 <span>SOFT M</span>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#services" class="nav-link">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#ministries" class="nav-link">Ministries</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#events" class="nav-link">Events</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#gallery" class="nav-link">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="#ministries" class="nav-link">Ministries</a></li>
+                <li class="nav-item"><a href="#events" class="nav-link">Events</a></li>
+                <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link contact-cta">Contact</a></li>
             </ul>
-            <div class="hamburger">
+            <div class="hamburger" id="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -57,21 +38,51 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+            <div class="hero-grid"></div>
+        </div>
         <div class="hero-content">
-            <h1 class="hero-title">Welcome to Spring of Faith Teaching Ministry World Wide</h1>
+            <div class="hero-badge">
+                <span class="badge-pulse"></span>
+                Worship &nbsp;·&nbsp; Fellowship &nbsp;·&nbsp; Growth
+            </div>
+            <h1 class="hero-title">Spring of Faith<br><em>Teaching Ministry</em><br>World Wide</h1>
             <p class="hero-subtitle">A place where faith grows, community thrives, and love abounds</p>
             <div class="hero-buttons">
-                <a href="#services" class="btn btn-primary">Join Us Sunday</a>
-                <a href="#about" class="btn btn-secondary">Learn More</a>
+                <a href="#services" class="btn btn-primary"><i class="fas fa-church"></i> Join Us Sunday</a>
+                <a href="#about" class="btn btn-ghost">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-label">Sunday Worship</span>
+                    <span class="stat-val">8:30 – 11:30 AM</span>
+                </div>
+                <div class="stat-sep"></div>
+                <div class="stat">
+                    <span class="stat-label">Wednesday Bible</span>
+                    <span class="stat-val">6:30 – 8:30 PM</span>
+                </div>
+                <div class="stat-sep"></div>
+                <div class="stat">
+                    <span class="stat-label">Location</span>
+                    <span class="stat-val">Israel – Sowutuom</span>
+                </div>
             </div>
         </div>
-        <div class="hero-overlay"></div>
+        <div class="hero-scroll">
+            <div class="scroll-track"><div class="scroll-thumb"></div></div>
+            <span>Scroll</span>
+        </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="section-header">
+                <span class="section-tag">Who We Are</span>
                 <h2>About Our Church</h2>
                 <p>Building a community of faith, hope, and love</p>
             </div>
@@ -81,17 +92,31 @@
                     <p>At Spring of Faith Teaching Ministry World Wide (SOFT M), we are committed to spreading God's
                         love through worship, fellowship, and service to our community. We believe in creating a
                         welcoming environment where everyone can grow in their faith journey.</p>
-
                     <h3>Our Values</h3>
                     <ul class="values-list">
-                        <li><i class="fas fa-heart"></i> Love and Compassion</li>
-                        <li><i class="fas fa-hands-helping"></i> Community Service</li>
-                        <li><i class="fas fa-book-open"></i> Biblical Teaching</li>
-                        <li><i class="fas fa-users"></i> Fellowship and Unity</li>
+                        <li>
+                            <span class="value-icon"><i class="fas fa-heart"></i></span>
+                            <span>Love and Compassion</span>
+                        </li>
+                        <li>
+                            <span class="value-icon"><i class="fas fa-hands-helping"></i></span>
+                            <span>Community Service</span>
+                        </li>
+                        <li>
+                            <span class="value-icon"><i class="fas fa-book-open"></i></span>
+                            <span>Biblical Teaching</span>
+                        </li>
+                        <li>
+                            <span class="value-icon"><i class="fas fa-users"></i></span>
+                            <span>Fellowship and Unity</span>
+                        </li>
                     </ul>
                 </div>
                 <div class="about-image">
-                    <img src="assets/img/church-image.jpg" alt="Spring of Faith church building" class="about-img">
+                    <div class="image-frame">
+                        <img src="assets/img/church-image.jpg" alt="Spring of Faith church building" class="about-img">
+                        <div class="image-frame-deco"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,27 +124,31 @@
 
     <!-- Services Section -->
     <section id="services" class="services">
+        <div class="services-bg"></div>
         <div class="container">
-            <div class="section-header">
+            <div class="section-header light">
+                <span class="section-tag">Gather With Us</span>
                 <h2>Service Times</h2>
                 <p>Join us for worship and fellowship</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-sun"></i>
+                    <div class="service-icon"><i class="fas fa-sun"></i></div>
+                    <div>
+                        <h3>Sunday Morning Worship</h3>
+                        <p class="service-time">8:30 AM — 11:30 AM</p>
+                        <p>Traditional worship service with inspiring music and biblical teaching</p>
                     </div>
-                    <h3>Sunday Morning Worship</h3>
-                    <p class="service-time">8:30 AM to 11:30 AM</p>
-                    <p>Traditional worship service with inspiring music and biblical teaching</p>
+                    <div class="card-shimmer"></div>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-book"></i>
+                    <div class="service-icon"><i class="fas fa-book"></i></div>
+                    <div>
+                        <h3>Wednesday Bible Service</h3>
+                        <p class="service-time">6:30 PM — 8:30 PM</p>
+                        <p>Deep dive into God's word with discussion and prayer</p>
                     </div>
-                    <h3>Wednesday Bible Service</h3>
-                    <p class="service-time">6:30 PM to 8:30 PM</p>
-                    <p>Deep dive into God's word with discussion and prayer</p>
+                    <div class="card-shimmer"></div>
                 </div>
             </div>
         </div>
@@ -129,29 +158,34 @@
     <section id="ministries" class="ministries">
         <div class="container">
             <div class="section-header">
+                <span class="section-tag">Get Involved</span>
                 <h2>Our Ministries</h2>
                 <p>Serving God through various ministries</p>
             </div>
             <div class="ministries-grid">
                 <div class="ministry-card">
-                    <i class="fas fa-child"></i>
+                    <div class="ministry-icon"><i class="fas fa-child"></i></div>
                     <h3>Children's Ministry</h3>
                     <p>Nurturing young hearts with God's love through fun activities and biblical lessons</p>
+                    <div class="ministry-line"></div>
                 </div>
                 <div class="ministry-card">
-                    <i class="fas fa-graduation-cap"></i>
+                    <div class="ministry-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3>Youth Ministry</h3>
                     <p>Empowering teenagers to grow in faith and develop Christian leadership</p>
+                    <div class="ministry-line"></div>
                 </div>
                 <div class="ministry-card">
-                    <i class="fas fa-music"></i>
+                    <div class="ministry-icon"><i class="fas fa-music"></i></div>
                     <h3>Worship Team</h3>
                     <p>Leading the congregation in praise and worship through music and song</p>
+                    <div class="ministry-line"></div>
                 </div>
                 <div class="ministry-card">
-                    <i class="fas fa-hands-helping"></i>
+                    <div class="ministry-icon"><i class="fas fa-hands-helping"></i></div>
                     <h3>Community Outreach</h3>
                     <p>Serving our local community through various charitable activities and programs</p>
+                    <div class="ministry-line"></div>
                 </div>
             </div>
         </div>
@@ -161,21 +195,22 @@
     <section id="events" class="events">
         <div class="container">
             <div class="section-header">
+                <span class="section-tag">What's On</span>
                 <h2>Upcoming Events</h2>
                 <p>Stay connected with our church community</p>
             </div>
-            <div class="events-grid">
+            <div class="events-list">
                 <div class="event-card">
                     <div class="event-date">
                         <span class="month">Dec</span>
-                        <span class="day">23-25</span>
+                        <span class="day">23–25</span>
                     </div>
                     <div class="event-info">
                         <h3>Christmas Eve Service</h3>
                         <p class="event-time"><i class="fas fa-clock"></i> 7:00 PM</p>
-                        <p>Join us for a special Christmas Eve candlelight service celebrating the birth of Jesus Christ
-                        </p>
+                        <p>Join us for a special Christmas Eve candlelight service celebrating the birth of Jesus Christ</p>
                     </div>
+                    <div class="event-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="event-card">
                     <div class="event-date">
@@ -184,9 +219,10 @@
                     </div>
                     <div class="event-info">
                         <h3>Community Food Drive</h3>
-                        <p class="event-time"><i class="fas fa-clock"></i> 9:00 AM - 3:00 PM</p>
+                        <p class="event-time"><i class="fas fa-clock"></i> 9:00 AM – 3:00 PM</p>
                         <p>Help us serve our community by donating non-perishable food items</p>
                     </div>
+                    <div class="event-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="event-card">
                     <div class="event-date">
@@ -194,10 +230,11 @@
                         <span class="day">31</span>
                     </div>
                     <div class="event-info">
-                        <h3>All Night</h3>
-                        <p class="event-time"><i class="fas fa-clock"></i> 9:00 PM - 12:00 AM</p>
+                        <h3>All Night Service</h3>
+                        <p class="event-time"><i class="fas fa-clock"></i> 9:00 PM – 12:00 AM</p>
                         <p>Join us as we gather in worship and prayer to close out the year together</p>
                     </div>
+                    <div class="event-arrow"><i class="fas fa-arrow-right"></i></div>
                 </div>
             </div>
         </div>
@@ -207,21 +244,33 @@
     <section id="gallery" class="gallery">
         <div class="container">
             <div class="section-header">
+                <span class="section-tag">Our Moments</span>
                 <h2>Gallery</h2>
                 <p>Moments from our church family</p>
             </div>
             <div class="gallery-grid">
                 <figure class="gallery-item">
                     <img src="assets/img/gallery/WhatsApp%20Image%202026-02-14%20at%2017.13.36.jpeg"
-                        alt="31st at All Night" class="gallery-img">
-                    <figcaption class="gallery-caption">31st at All Night</figcaption>
+                        alt="31st All Night Service" class="gallery-img">
+                    <figcaption class="gallery-caption">
+                        <i class="fas fa-expand-alt"></i>
+                        31st All Night Service
+                    </figcaption>
                 </figure>
                 <figure class="gallery-item">
                     <img src="assets/img/gallery/WhatsApp%20Image%202026-02-14%20at%2017.14.15.jpeg"
-                        alt="31st at All Night" class="gallery-img">
-                    <figcaption class="gallery-caption">31st at All Night</figcaption>
+                        alt="31st All Night – Worship Team" class="gallery-img">
+                    <figcaption class="gallery-caption">
+                        <i class="fas fa-expand-alt"></i>
+                        31st All Night – Worship Team
+                    </figcaption>
                 </figure>
             </div>
+        </div>
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox">
+            <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+            <img src="" alt="" class="lightbox-img" id="lightboxImg">
         </div>
     </section>
 
@@ -229,53 +278,65 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
+                <span class="section-tag">Find Us</span>
                 <h2>Visit Us</h2>
                 <p>We'd love to welcome you to our church family</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
                         <div>
                             <h3>Address</h3>
-                            <p>Israel - Sowutuom</p>
+                            <p>Israel – Sowutuom, Accra</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-phone"></i>
+                        <span class="contact-icon"><i class="fas fa-phone"></i></span>
                         <div>
                             <h3>Phone</h3>
                             <p>(555) 123-4567</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
+                        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
                         <div>
                             <h3>Email</h3>
                             <p>info@springoffaith.org</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <i class="fas fa-clock"></i>
+                        <span class="contact-icon"><i class="fas fa-clock"></i></span>
                         <div>
                             <h3>Office Hours</h3>
-                            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                            <p>Monday – Friday: 8:00 AM – 6:00 PM</p>
                         </div>
+                    </div>
+                    <div class="contact-socials">
+                        <a href="#" class="csocial"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="csocial"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="csocial"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="csocial"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
                 <div class="contact-form">
                     <h3>Send us a message</h3>
-                    <form>
+                    <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <label>Your Name</label>
+                            <input type="text" placeholder="John Mensah" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
+                            <label>Your Email</label>
+                            <input type="email" placeholder="john@example.com" required>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                            <label>Your Message</label>
+                            <textarea placeholder="Write your message here…" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -286,14 +347,14 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
+                <div class="footer-section footer-brand">
                     <div class="footer-logo">
                         <img src="assets/img/logo.svg" alt="SOFT M Logo" class="logo-img">
                         <span>Spring of Faith Teaching Ministry World Wide</span>
                     </div>
                     <p>A community of believers growing together in faith, hope, and love.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -311,19 +372,18 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact Info</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Israel - Sowutuom</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Israel – Sowutuom, Accra</p>
                     <p><i class="fas fa-phone"></i> (555) 123-4567</p>
                     <p><i class="fas fa-envelope"></i> info@springoffaith.org</p>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2024 Spring of Faith Teaching Ministry World Wide (SOFT M). All rights reserved.</p>
-                <p>God Richly Bless You</p>
+                <p class="footer-blessing">God Richly Bless You 🙏</p>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
-
 </html>

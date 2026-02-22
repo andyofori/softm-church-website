@@ -1,232 +1,122 @@
-// Mobile Navigation Toggle (guard for older browsers)
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-
+// Mobile Navigation
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
 if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
     });
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
 }
 
-// Close mobile menu when clicking on a link (compat for older Safari)
-Array.from(document.querySelectorAll('.nav-link')).forEach(n => n.addEventListener('click', () => {
-    if (hamburger) hamburger.classList.remove('active');
-    if (navMenu) navMenu.classList.remove('active');
-}));
+// Navbar scroll state
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    navbar && navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
 
-// Smooth scrolling for navigation links with fallback for older Safari
-const supportsSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-Array.from(document.querySelectorAll('a[href^="#"]')).forEach(anchor => {
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (!href || href === '#') return;
         const target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
-
-        const headerOffset = 70;
-        const elementPosition = target.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-        if (supportsSmoothScroll && typeof window.scrollTo === 'function') {
-            try {
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            } catch (_) {
-                window.scrollTo(0, offsetPosition);
-            }
-        } else {
-            window.scrollTo(0, offsetPosition);
-        }
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 72, behavior: 'smooth' });
     });
 });
 
-// Navbar background change on scroll
+// Active nav on scroll
 window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-    }
+    let current = '';
+    document.querySelectorAll('section[id]').forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top <= 100 && top + section.clientHeight > 100) current = section.getAttribute('id');
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
 });
 
-// Contact form handling
-const contactForm = document.querySelector('.contact-form form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(this);
-        const name = this.querySelector('input[type="text"]').value;
-        const email = this.querySelector('input[type="email"]').value;
-        const message = this.querySelector('textarea').value;
-        
-        // Basic validation
-        if (!name || !email || !message) {
-            alert('Please fill in all fields.');
-            return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
-            return;
-        }
-        
-        // Simulate form submission (replace with actual form handling)
-        const submitButton = this.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-        
-        submitButton.textContent = 'Sending...';
-        submitButton.disabled = true;
-        
-        // Simulate API call
-        setTimeout(() => {
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        }, 2000);
-    });
-}
-
-// Intersection Observer for animations with fallback
+// Scroll-reveal
 document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.service-card, .ministry-card, .event-card, .about-text, .about-image');
-
+    const revealEls = document.querySelectorAll('.service-card, .ministry-card, .event-card, .gallery-item, .about-text, .about-image, .contact-item, .section-header');
     if ('IntersectionObserver' in window) {
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
+        const obs = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
+                    const siblings = Array.from(entry.target.parentElement.children);
+                    const delay = Math.min(siblings.indexOf(entry.target) * 80, 400);
+                    setTimeout(() => entry.target.classList.add('visible'), delay);
+                    obs.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
-
-        Array.from(animateElements).forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => { el.classList.add('reveal'); obs.observe(el); });
     } else {
-        // Fallback: simply reveal elements without animation
-        Array.from(animateElements).forEach(el => {
-            el.style.opacity = '1';
-            el.style.transform = 'none';
-        });
+        revealEls.forEach(el => el.classList.add('visible'));
     }
 });
 
-// Add active class to current navigation item based on scroll position
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    let currentSection = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        const sectionHeight = section.clientHeight;
-        
-        if (sectionTop <= 100 && sectionTop + sectionHeight > 100) {
-            currentSection = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSection}`) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
-// Hamburger animation
+// Lightbox
 document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.querySelector('.hamburger');
-    
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            const bars = hamburger.querySelectorAll('.bar');
-            
-            if (hamburger.classList.contains('active')) {
-                bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                bars[1].style.opacity = '0';
-                bars[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-            } else {
-                bars[0].style.transform = 'none';
-                bars[1].style.opacity = '1';
-                bars[2].style.transform = 'none';
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    if (!lightbox) return;
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const img = item.querySelector('.gallery-img');
+            if (img) {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
             }
         });
-    }
+    });
+    const close = () => { lightbox.classList.remove('open'); document.body.style.overflow = ''; };
+    if (lightboxClose) lightboxClose.addEventListener('click', close);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 });
 
-// Add scroll-to-top functionality
-const scrollToTop = () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-};
-
-// Create scroll to top button
+// Contact form
 document.addEventListener('DOMContentLoaded', () => {
-    const scrollButton = document.createElement('button');
-    scrollButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
-    scrollButton.className = 'scroll-to-top';
-    scrollButton.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        font-size: 1.2rem;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    `;
-    
-    scrollButton.addEventListener('click', scrollToTop);
-    document.body.appendChild(scrollButton);
-    
-    // Show/hide scroll button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollButton.style.opacity = '1';
-            scrollButton.style.visibility = 'visible';
-        } else {
-            scrollButton.style.opacity = '0';
-            scrollButton.style.visibility = 'hidden';
-        }
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = this.querySelector('input[type="text"]').value.trim();
+        const email = this.querySelector('input[type="email"]').value.trim();
+        const message = this.querySelector('textarea').value.trim();
+        if (!name || !email || !message) return alert('Please fill in all fields.');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('Please enter a valid email address.');
+        const btn = this.querySelector('button[type="submit"]');
+        const orig = btn.innerHTML;
+        btn.innerHTML = 'Sending… <i class="fas fa-circle-notch fa-spin"></i>';
+        btn.disabled = true;
+        setTimeout(() => {
+            alert('Thank you for your message! We will get back to you soon. \uD83D\uDE4F');
+            form.reset();
+            btn.innerHTML = orig;
+            btn.disabled = false;
+        }, 1800);
     });
-    
-    scrollButton.addEventListener('mouseenter', () => {
-        scrollButton.style.transform = 'scale(1.1)';
-    });
-    
-    scrollButton.addEventListener('mouseleave', () => {
-        scrollButton.style.transform = 'scale(1)';
-    });
+});
+
+// Scroll-to-top
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.createElement('button');
+    btn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+    btn.className = 'scroll-to-top';
+    document.body.appendChild(btn);
+    window.addEventListener('scroll', () => btn.classList.toggle('visible', window.pageYOffset > 400));
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 });
